@@ -1,0 +1,932 @@
+/* Inline navbar placement hotfix: align the custom search LI to the navbar height */
+.navbar-nav > li#smartsearch-inline-li,
+.navbar-nav > li.smartsearch-inline {
+  display: flex !important;
+  align-items: center;
+  height: 50px;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.navbar-nav > li#smartsearch-inline-li > .smartsearch-inline-form,
+.navbar-nav > li.smartsearch-inline > .smartsearch-inline-form {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+/* Inline (always-visible) topbar search — positioned via JS next to notifications */
+.smartsearch-inline {
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+
+.smartsearch-inline .smartsearch-inline-form {
+  margin: 0 6px;
+  position: relative; /* anchor dropdown to the exact input-group width */
+  display: flex;
+  align-items: center;
+}
+
+.smartsearch-inline .smartsearch-inline-input {
+  width: 210px;
+  transition: box-shadow 140ms ease, opacity 140ms ease;
+  /* input-group overrides border radius; re-apply below with more specific rules */
+  border-radius: 999px;
+}
+
+/* Make the whole search pill fully rounded (both edges), including the button */
+.smartsearch-inline .input-group > .form-control.smartsearch-inline-input {
+  border-top-left-radius: 999px;
+  border-bottom-left-radius: 999px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+/* With multiple buttons, only round the outer edge of the last one. */
+.smartsearch-inline .input-group-btn > .btn {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.smartsearch-inline .input-group-btn > .btn:not(:last-child) {
+
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.smartsearch-inline .input-group-btn > .btn:last-child {
+  border-top-right-radius: 999px;
+  border-bottom-right-radius: 999px;
+}
+
+/* Keep icon buttons visually consistent (magnifier + ⋮) */
+.smartsearch-inline .input-group-btn > .btn.smartsearch-search-btn,
+.smartsearch-inline .input-group-btn > .btn.smartsearch-more {
+  min-width: 32px;
+  padding-left: 0;
+  padding-right: 0;
+  text-align: center;
+}
+
+
+/* Magnifier is intentionally not a submit affordance.
+   Keep button background identical to ⋮ by applying opacity to the icon only. */
+.smartsearch-inline .input-group-btn > .btn.smartsearch-search-btn i {
+  opacity: 0.7;
+}
+
+.smartsearch-inline .input-group-btn > .btn.smartsearch-search-btn:hover i,
+.smartsearch-inline .input-group-btn > .btn.smartsearch-search-btn:focus i {
+  opacity: 0.85;
+}
+
+.smartsearch-inline .input-group-btn > .btn:focus,
+.smartsearch-inline .input-group-btn > .btn:active {
+  outline: none;
+}
+
+.smartsearch-inline .smartsearch-inline-input:focus {
+  opacity: 1;
+  box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.18);
+}
+
+/* Suggestions dropdown
+   Rendered as a body-level portal by JS so dashboard/navbar overflow cannot clip it. */
+.smartsearch-inline {
+  position: relative;
+}
+
+.smartsearch-suggest {
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 10px;
+  box-shadow: 0 14px 34px rgba(15, 23, 42, 0.18);
+  left: auto;
+  margin-top: 0;
+  max-height: 320px;
+  overflow: auto;
+  padding: 6px 0;
+  position: fixed;
+  right: auto;
+  top: auto;
+  width: 260px;
+  width: var(--smartsearch-suggest-width, 260px);
+  z-index: 3000;
+}
+
+.smartsearch-suggest-head {
+  padding: 6px 12px;
+  font-size: 12px;
+  opacity: 0.7;
+}
+
+.smartsearch-suggest-sep {
+  height: 1px;
+  margin: 6px 0;
+  background: rgba(0,0,0,0.08);
+}
+
+.smartsearch-suggest-item {
+  display: flex;
+  gap: 8px;
+  padding: 7px 12px;
+  text-decoration: none;
+  white-space: normal;
+  overflow: hidden;
+}
+
+.smartsearch-suggest-item:hover,
+.smartsearch-suggest-item:focus,
+.smartsearch-suggest-item.active {
+  text-decoration: none;
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.smartsearch-suggest-num {
+  opacity: 0.75;
+  flex: 0 0 auto;
+  font-weight: 600;
+}
+
+/* "Search Smart for …" entry (always present when typing) */
+.smartsearch-suggest-searchall .smartsearch-suggest-subj {
+  font-weight: 600;
+}
+
+.smartsearch-suggest-hint {
+  flex: 0 0 auto;
+  opacity: 0.6;
+  font-size: 12px;
+  line-height: 18px;
+}
+
+.smartsearch-suggest-subj {
+  flex: 1 1 auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.smartsearch-suggest-main {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.smartsearch-suggest-row1 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.smartsearch-suggest-row1 .smartsearch-suggest-subj {
+  white-space: nowrap;
+}
+
+.smartsearch-suggest-row2 {
+  display: block;
+  margin-top: 1px;
+  font-size: 12px;
+  opacity: 0.65;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.smartsearch-suggest-status {
+  flex: 0 0 auto;
+  font-size: 11px;
+  padding: 2px 6px;
+  border-radius: 999px;
+}
+
+/* Hover-to-expand dropdown (desktop only).
+   Expands to the LEFT by anchoring the right edge to the input group.
+   This improves scannability for long subjects without changing the default footprint. */
+@media (min-width: 992px) {
+  .smartsearch-suggest.smartsearch-suggest-expandable:hover {
+    max-width: calc(100vw - 24px);
+    width: 560px;
+    width: var(--smartsearch-suggest-expanded-width, 560px);
+  }
+
+  .smartsearch-suggest.smartsearch-suggest-expandable:hover .smartsearch-suggest-item {
+    align-items: flex-start;
+  }
+
+  .smartsearch-suggest.smartsearch-suggest-expandable:hover .smartsearch-suggest-row1 .smartsearch-suggest-subj,
+  .smartsearch-suggest.smartsearch-suggest-expandable:hover .smartsearch-suggest-row2 {
+    white-space: normal;
+    overflow: visible;
+    text-overflow: clip;
+  }
+}
+
+
+/* Highlight matched fragments in suggestions/results (kept subtle and theme-friendly). */
+.smartsearch-hl {
+  background: rgba(255, 235, 59, 0.55);
+  padding: 0 1px;
+  border-radius: 3px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .smartsearch-hl {
+    background: rgba(255, 235, 59, 0.25);
+  }
+}
+
+body.dark-mode .smartsearch-hl,
+body.theme-dark .smartsearch-hl {
+  background: rgba(255, 235, 59, 0.25);
+}
+
+/* Dark-mode friendliness: prefer system theme, and also support a future body class */
+@media (prefers-color-scheme: dark) {
+  .smartsearch-suggest {
+    background: #2b2f35;
+    border-color: rgba(255, 255, 255, 0.12);
+  }
+
+  .smartsearch-suggest-item {
+    color: rgba(255, 255, 255, 0.92);
+  }
+
+  .smartsearch-suggest-item:hover,
+  .smartsearch-suggest-item:focus {
+    background: rgba(255, 255, 255, 0.08);
+  }
+}
+
+body.dark-mode .smartsearch-suggest,
+body.theme-dark .smartsearch-suggest {
+  background: #2b2f35;
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+body.dark-mode .smartsearch-suggest-item,
+body.theme-dark .smartsearch-suggest-item {
+  color: rgba(255, 255, 255, 0.92);
+}
+
+body.dark-mode .smartsearch-suggest-item:hover,
+body.dark-mode .smartsearch-suggest-item:focus,
+body.theme-dark .smartsearch-suggest-item:hover,
+body.theme-dark .smartsearch-suggest-item:focus {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* Tighten on smaller screens */
+@media (max-width: 991px) {
+  /* On tablet/mobile, avoid the cramped "pill". Let it breathe and stay readable. */
+  .smartsearch-inline .smartsearch-inline-form { margin: 8px 10px 0 10px; }
+  .smartsearch-inline .smartsearch-inline-input { width: 100%; }
+  .smartsearch-inline .input-group { width: 100%; }
+
+  /* Suggestions: keep them compact on mobile.
+     Show just the primary line (ID + Subject) and hide secondary/meta details. */
+  .smartsearch-suggest { max-height: 58vh; }
+  .smartsearch-suggest-item { padding: 10px 12px; }
+  .smartsearch-suggest-row2 { display: none; }
+  .smartsearch-suggest-status { display: none; }
+  .smartsearch-suggest-hint { display: none; }
+}
+
+/* Mobile navbar: keep Smart Search visible at the top of the collapsed menu. */
+@media (max-width: 767px) {
+  .navbar-nav > li#smartsearch-inline-li,
+  .navbar-nav > li.smartsearch-inline {
+    clear: both;
+    display: block !important;
+    height: auto;
+    padding: 0 10px;
+    width: 100%;
+  }
+
+  .navbar-nav > li#smartsearch-inline-li > .smartsearch-inline-form,
+  .navbar-nav > li.smartsearch-inline > .smartsearch-inline-form {
+    border: 0;
+    box-shadow: none;
+    margin: 8px 0 10px;
+    padding: 0;
+    width: 100%;
+  }
+
+  .smartsearch-inline .input-group {
+    width: 100%;
+  }
+
+  .smartsearch-suggest.smartsearch-suggest-mobile {
+    border-radius: 12px;
+    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.16);
+    max-height: 42vh;
+    max-width: calc(100vw - 24px);
+    min-width: 0;
+    overflow-x: hidden;
+    z-index: 4000;
+  }
+
+  .smartsearch-suggest.smartsearch-suggest-mobile .smartsearch-suggest-item {
+    align-items: center;
+    min-height: 38px;
+  }
+
+  .smartsearch-suggest.smartsearch-suggest-mobile .smartsearch-suggest-row1 .smartsearch-suggest-subj {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+.smartsearch-results-meta {
+  margin: 15px 0;
+}
+
+.smartsearch-col-conversation { width: 180px; }
+.smartsearch-col-field { width: 220px; }
+.smartsearch-col-status { width: 120px; }
+
+.smartsearch-bulk-toolbar {
+  align-items: center;
+  background: #f8fafc;
+  border: 1px solid #d9e2ec;
+  border-radius: 4px;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 8px 0 10px;
+  padding: 6px 8px 2px;
+}
+
+.smartsearch-bulk-toolbar > * {
+  margin: 0 6px 6px 0;
+}
+
+.smartsearch-bulk-toolbar .checkbox-inline {
+  padding-top: 4px;
+}
+
+.smartsearch-bulk-toolbar .form-control.input-sm {
+  display: inline-block;
+  max-width: 260px;
+  width: auto;
+}
+
+.smartsearch-bulk-action {
+  min-width: 160px;
+}
+
+.smartsearch-bulk-target {
+  display: none;
+}
+
+.smartsearch-bulk-target-note {
+  flex: 1 1 300px;
+  max-width: 520px !important;
+  min-width: 240px;
+}
+
+.smartsearch-bulk-count {
+  line-height: 30px;
+  white-space: nowrap;
+}
+
+.smartsearch-col-check {
+  text-align: center;
+  width: 36px;
+}
+
+.smartsearch-col-check input[type="checkbox"] {
+  margin: 0;
+}
+
+.smartsearch-results-wrap {
+  border: 0;
+  margin-bottom: 0;
+  overflow-x: auto;
+}
+
+.smartsearch-results-table {
+  margin-bottom: 0;
+  min-width: 720px;
+}
+
+body.dark-mode .smartsearch-bulk-toolbar,
+body.theme-dark .smartsearch-bulk-toolbar {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+@media (max-width: 767px) {
+  .smartsearch-bulk-toolbar {
+    align-items: stretch;
+    display: block;
+    padding: 8px 8px 2px;
+  }
+
+  .smartsearch-bulk-toolbar > * {
+    margin: 0 0 6px;
+  }
+
+  .smartsearch-bulk-toolbar .form-control.input-sm,
+  .smartsearch-bulk-toolbar .btn {
+    max-width: none !important;
+    width: 100%;
+  }
+
+  .smartsearch-bulk-select-visible,
+  .smartsearch-bulk-count {
+    display: block;
+    width: 100%;
+  }
+
+  .smartsearch-bulk-target-note {
+    min-width: 0;
+  }
+
+  .smartsearch-results-table {
+    font-size: 13px;
+    min-width: 680px;
+  }
+}
+
+/* Multi-selects: Bootstrap .form-control height otherwise clips to one row */
+.smartsearch-page select.form-control.smartsearch-multi,
+.smartsearch-page select.form-control[multiple] {
+  height: auto;
+  min-height: 7.5em;
+  padding: 6px 8px;
+}
+
+.smartsearch-field-values-box {
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  background: #fff;
+  padding: 8px 10px;
+  max-height: 180px;
+  overflow-y: auto;
+}
+
+.smartsearch-field-values-checks .checkbox {
+  display: block;
+  margin: 0 0 6px 0;
+  min-height: 0;
+}
+
+.smartsearch-field-values-checks .checkbox:last-child {
+  margin-bottom: 0;
+}
+
+body.dark-mode .smartsearch-field-values-box,
+body.theme-dark .smartsearch-field-values-box {
+  background: #2b2b2b;
+  border-color: #555;
+}
+
+/* ===== Smart Search form card (tile UI) ===== */
+.smartsearch-page .smartsearch-panel {
+  position: relative;
+  z-index: 40;
+  overflow: visible;
+  border-radius: 10px;
+  border-color: #e3e6ea;
+  box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04);
+}
+
+.smartsearch-page .smartsearch-panel > .panel-body {
+  overflow: visible;
+}
+
+.smartsearch-card {
+  max-width: 100%;
+  overflow: visible;
+}
+
+.smartsearch-query-label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: #667085;
+  margin-bottom: 6px;
+}
+
+.smartsearch-query-input {
+  height: 44px;
+  border-radius: 8px;
+  border-color: #d0d5dd;
+  font-size: 15px;
+  box-shadow: none;
+}
+
+.smartsearch-query-input:focus {
+  border-color: #2f80ed;
+  box-shadow: 0 0 0 3px rgba(47, 128, 237, 0.15);
+}
+
+.smartsearch-tip {
+  margin: 8px 0 16px;
+  color: #98a2b3;
+  font-size: 12px;
+}
+
+.smartsearch-filter-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 14px;
+  overflow: visible;
+}
+
+/* Below 1200px: Custom Fields on its own full-width row under Mailbox/Status */
+.smartsearch-filter-grid > .smartsearch-tile-cf {
+  grid-column: 1 / -1;
+}
+
+@media (min-width: 1200px) {
+  .smartsearch-filter-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .smartsearch-filter-grid > .smartsearch-tile-cf {
+    grid-column: auto;
+  }
+}
+
+.smartsearch-tile {
+  position: relative;
+  z-index: 1;
+}
+
+.smartsearch-tile.is-open {
+  z-index: 10060;
+}
+
+.smartsearch-more-wrap {
+  display: grid;
+  grid-template-rows: 1fr;
+  opacity: 1;
+  transition: grid-template-rows .32s ease, opacity .28s ease, margin .32s ease;
+  margin-bottom: 14px;
+}
+
+.smartsearch-more-wrap.is-collapsed {
+  grid-template-rows: 0fr;
+  opacity: 0;
+  margin-bottom: 0;
+  pointer-events: none;
+}
+
+.smartsearch-more-anim {
+  overflow: hidden;
+  min-height: 0;
+}
+
+.smartsearch-more-grid {
+  margin-bottom: 14px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.smartsearch-more-wrap.is-collapsed .smartsearch-tile-panel {
+  display: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .smartsearch-more-wrap {
+    transition: none;
+  }
+}
+
+.smartsearch-tile-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-align: left;
+  background: #fff;
+  border: 1px solid #e4e7ec;
+  border-radius: 10px;
+  padding: 10px 12px;
+  min-height: 58px;
+  transition: border-color .15s ease, box-shadow .15s ease;
+}
+
+.smartsearch-tile-btn:hover,
+.smartsearch-tile.is-open .smartsearch-tile-btn {
+  border-color: #2f80ed;
+  box-shadow: 0 0 0 3px rgba(47, 128, 237, 0.12);
+}
+
+.smartsearch-tile-icon {
+  color: #98a2b3;
+  font-size: 14px;
+  width: 18px;
+  text-align: center;
+}
+
+.smartsearch-tile-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.smartsearch-tile-label {
+  display: block;
+  font-size: 11px;
+  color: #98a2b3;
+  line-height: 1.2;
+  margin-bottom: 2px;
+}
+
+.smartsearch-tile-value {
+  display: block;
+  font-size: 13px;
+  color: #344054;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.smartsearch-cf-summary {
+  white-space: normal;
+}
+
+.smartsearch-tile-caret {
+  color: #98a2b3;
+  font-size: 11px;
+}
+
+.smartsearch-muted {
+  color: #98a2b3;
+  font-weight: 400;
+}
+
+.smartsearch-pill {
+  display: inline-block;
+  background: #e8f5e9;
+  color: #2e7d32;
+  border-radius: 999px;
+  padding: 2px 8px;
+  font-size: 12px;
+  font-weight: 600;
+  margin-right: 4px;
+  margin-bottom: 2px;
+}
+
+.smartsearch-tile-panel {
+  position: absolute;
+  z-index: 10050;
+  left: 0;
+  right: 0;
+  top: calc(100% + 6px);
+  background: #fff;
+  border: 1px solid #e4e7ec;
+  border-radius: 10px;
+  padding: 12px;
+  box-shadow: 0 12px 32px rgba(16, 24, 40, 0.18);
+}
+
+.smartsearch-tile-cf .smartsearch-tile-panel,
+.smartsearch-cf-panel {
+  min-width: 280px;
+  width: max(100%, 360px);
+}
+
+.smartsearch-check-list {
+  max-height: 220px;
+  overflow-y: auto;
+  margin-bottom: 6px;
+}
+
+.smartsearch-check-list .checkbox {
+  display: block;
+  margin: 0 0 6px;
+  min-height: 0;
+}
+
+.smartsearch-option-list {
+  max-height: 260px;
+  overflow-y: auto;
+}
+
+.smartsearch-option-list .radio {
+  display: block;
+  margin: 0 0 6px;
+  min-height: 0;
+  padding-left: 20px;
+  cursor: pointer;
+}
+
+.smartsearch-option-list .radio input[type="radio"] {
+  margin-left: -20px;
+}
+
+.smartsearch-cf-row {
+  border: 1px solid #eef2f6;
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 10px;
+  background: #fafbfc;
+}
+
+.smartsearch-cf-row-head {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.smartsearch-cf-row-head .form-control {
+  flex: 1;
+}
+
+.smartsearch-cf-op-wrap {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.smartsearch-cf-op-label {
+  margin: 0;
+  font-size: 12px;
+  color: #6b7785;
+  white-space: nowrap;
+  min-width: 64px;
+}
+
+.smartsearch-cf-op-wrap .form-control {
+  flex: 1;
+}
+
+.smartsearch-cf-between {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.smartsearch-cf-between .form-control {
+  flex: 1;
+}
+
+.smartsearch-cf-between-sep {
+  color: #6b7785;
+  flex: 0 0 auto;
+}
+
+.smartsearch-form-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 4px;
+}
+
+.smartsearch-submit {
+  min-width: 120px;
+  border-radius: 8px;
+  padding: 10px 18px;
+  font-weight: 600;
+}
+
+.smartsearch-more-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding-left: 0;
+  text-decoration: none !important;
+  box-shadow: none !important;
+}
+
+.smartsearch-more-toggle:hover,
+.smartsearch-more-toggle:focus,
+.smartsearch-more-toggle:active {
+  text-decoration: none !important;
+}
+
+.smartsearch-more-toggle-caret {
+  font-size: 11px;
+  line-height: 1;
+  transition: transform .28s ease;
+}
+
+.smartsearch-more-toggle[data-expanded="1"] .smartsearch-more-toggle-caret,
+.smartsearch-more-toggle[aria-expanded="true"] .smartsearch-more-toggle-caret {
+  transform: rotate(180deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .smartsearch-more-toggle-caret {
+    transition: none;
+  }
+}
+
+.smartsearch-advanced {
+  margin: 0;
+  padding: 14px;
+  border: 1px solid #e4e7ec;
+  border-radius: 10px;
+  background: #fafbfc;
+}
+
+.smartsearch-advanced-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: #667085;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  letter-spacing: .02em;
+}
+
+.smartsearch-advanced-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px 16px;
+}
+
+.smartsearch-advanced-item .help-block {
+  margin-bottom: 0;
+  font-size: 12px;
+}
+
+.smartsearch-advanced-wide {
+  grid-column: 1 / -1;
+}
+
+.smartsearch-date-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.smartsearch-date-row .form-control {
+  width: auto;
+  min-width: 0;
+  flex: 1 1 110px;
+}
+
+.smartsearch-date-sep {
+  color: #98a2b3;
+}
+
+.smartsearch-check-inline {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+}
+
+.smartsearch-check-inline .checkbox-inline {
+  margin: 0;
+  padding-left: 0;
+}
+
+.smartsearch-tags-checks {
+  max-height: 140px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 18px;
+}
+
+.smartsearch-tags-checks .checkbox {
+  position: relative;
+  display: block;
+  margin: 0;
+  min-width: 140px;
+  min-height: 0;
+  padding-left: 20px;
+}
+
+.smartsearch-tags-checks .checkbox input[type="checkbox"] {
+  position: absolute;
+  margin-left: -20px;
+  margin-top: 3px;
+}
+
+@media (max-width: 991px) {
+  .smartsearch-filter-grid,
+  .smartsearch-advanced-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+body.dark-mode .smartsearch-tile-btn,
+body.theme-dark .smartsearch-tile-btn,
+body.dark-mode .smartsearch-tile-panel,
+body.theme-dark .smartsearch-tile-panel,
+body.dark-mode .smartsearch-cf-row,
+body.theme-dark .smartsearch-cf-row,
+body.dark-mode .smartsearch-advanced,
+body.theme-dark .smartsearch-advanced {
+  background: #2b2b2b;
+  border-color: #555;
+}
+
+body.dark-mode .smartsearch-tile-value,
+body.theme-dark .smartsearch-tile-value {
+  color: #eee;
+}
+
+body.dark-mode .smartsearch-pill,
+body.theme-dark .smartsearch-pill {
+  background: #1b5e20;
+  color: #c8e6c9;
+}

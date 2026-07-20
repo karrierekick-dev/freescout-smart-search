@@ -1,0 +1,4 @@
+* text=auto eol=lf
+
+# Make GitHub language stats nicer
+*.php linguist-language=PHP

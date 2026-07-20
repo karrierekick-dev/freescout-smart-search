@@ -4,7 +4,7 @@ Enhanced unified conversation search for FreeScout.
 
 **Version:** 1.0.0  
 **License:** AGPL-3.0  
-**Repository:** [karrierekick-dev/freescout-better-search](https://github.com/karrierekick-dev/freescout-better-search)
+**Repository:** [kirschkern/freescout-better-search](https://github.com/kirschkern/freescout-better-search)
 
 ## Attribution
 
